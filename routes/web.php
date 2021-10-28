@@ -22,3 +22,7 @@ Route::get('/', function () {
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/dashboard', 'DashboardController@toDashboard');
+Route::get('/barang', 'BarangController@toBarang');
+Route::get('/aksesoris', 'AksesorisController@toAksesoris');
+Route::get('/pembelian', 'PembelianController@toPembelian');
+Route::get('/hasilproduksi', 'HasilProduksiController@toHasilProduksi');
