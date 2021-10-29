@@ -26,3 +26,10 @@ Route::get('/barang', 'BarangController@toBarang');
 Route::get('/aksesoris', 'AksesorisController@toAksesoris');
 Route::get('/pembelian', 'PembelianController@toPembelian');
 Route::get('/hasilproduksi', 'HasilProduksiController@toHasilProduksi');
+
+Route::get('/aksesoris/add', 'AksesorisController@add');
+Route::post('/aksesoris/create', 'AksesorisController@create');
+
+Route::get('/aksesoris/edit/{id}', 'AksesorisController@edit');
+Route::post('/aksesoris/update/{id}','AksesorisController@update');
+Route::get('/aksesoris/delete/{id}', 'AksesorisController@delete');

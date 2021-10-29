@@ -37,7 +37,11 @@
 @section('content')
 <div class="card">
   <div class="card-body">
-    <h5 class="card-title">Tabel Aksesoris</h5>
+    <div class="card-title">
+      <a href="aksesoris/add">
+        <button type="button" class="btn btn-primary">Tambah Data</button>
+      </a>
+    </div>
 
     <!-- Bordered Table -->
     <table class="table table-bordered">
@@ -46,18 +50,27 @@
           <th scope="col">No</th>
           <th scope="col">Nama Aksesoris</th>
           <th scope="col">Harga</th>
-          <th scope="col">Age</th>
-          <th scope="col">Start Date</th>
+          <th scope="col">Action</th>
         </tr>
       </thead>
       <tbody>
+        <?php $no = 0; ?>
+        @foreach($aksesoris as $row)
         <tr>
-          <th scope="row">1</th>
-          <td>Brandon Jacob</td>
-          <td>Designer</td>
-          <td>28</td>
-          <td>2016-05-25</td>
+          <th scope="row"><?php $no++;
+                          echo $no; ?></th>
+          <td>{{$row->nama_aksesoris}}</td>
+          <td>{{$row->harga}}</td>
+          <td>
+            <a href="/aksesoris/delete/{{$row->id_aksesoris}}">
+              <button type="button" class="btn btn-outline-danger btn-sm">Hapus</button>
+            </a>
+            <a href="/aksesoris/edit/{{$row->id_aksesoris}}">
+              <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
+            </a>
+          </td>
         </tr>
+        @endforeach
       </tbody>
     </table>
     <!-- End Bordered Table -->
