@@ -51,7 +51,7 @@
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Warna</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" name="warna">
+                    <input type="text" class="form-control" name="warna">
                 </div>
             </div>
             <div class="text-center">
