@@ -38,7 +38,7 @@
 <div class="card">
   <div class="card-body">
     <div class="card-title">
-      <a href="aksesoris/add">
+      <a href="barang/add">
         <button type="button" class="btn btn-primary">Tambah Data</button>
       </a>
     </div>
