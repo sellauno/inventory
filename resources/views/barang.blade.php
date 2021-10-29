@@ -35,6 +35,46 @@
 @endsection
 
 @section('content')
+<div class="card">
+  <div class="card-body">
+    <div class="card-title">
+      <a href="aksesoris/add">
+        <button type="button" class="btn btn-primary">Tambah Data</button>
+      </a>
+    </div>
 
+    <!-- Bordered Table -->
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">No</th>
+          <th scope="col">Nama Barang</th>
+          <th scope="col">Warna</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php $no = 0; ?>
+        @foreach($barang as $row)
+        <tr>
+          <th scope="row"><?php $no++;
+                          echo $no; ?></th>
+          <td>{{$row->nama_barang}}</td>
+          <td>{{$row->warna}}</td>
+          <td>
+            <a href="/barang/delete/{{$row->id_barang}}">
+              <button type="button" class="btn btn-outline-danger btn-sm">Hapus</button>
+            </a>
+            <a href="/barang/edit/{{$row->id_barang}}">
+              <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
+            </a>
+          </td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
+    <!-- End Bordered Table -->
+  </div>
+</div>
 
 @endsection
