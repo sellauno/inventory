@@ -10,7 +10,7 @@
 </li><!-- End Dashboard Nav -->
 
 <li class="nav-item">
-    <a class="nav-link collapsed" data-bs-target="#components-nav" href="/barang">
+    <a class="nav-link " data-bs-target="#components-nav" href="/barang">
         <i class="bi bi-menu-button-wide"></i><span>Barang</span></i>
     </a>
 </li><!-- End Barang Nav -->
@@ -28,7 +28,7 @@
 </li><!-- End Produksi Nav -->
 
 <li class="nav-item">
-    <a class="nav-link " data-bs-target="#icons-nav" href="/aksesoris">
+    <a class="nav-link collapsed" data-bs-target="#icons-nav" href="/aksesoris">
         <i class="bi bi-gem"></i><span>Aksesoris</span>
     </a>
 </li><!-- End Aksesoris Nav -->
@@ -55,9 +55,17 @@
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">Detail</label>
+                <legend class="col-form-label col-sm-2 pt-0">Kebutuhan Aksesoris</legend>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="detail">
+                    @foreach($aksesoris as $row)
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="gridCheck1" value="{{$row->id_aksesoris}}">
+                        <label class="form-check-label" for="gridCheck1">
+                            {{$row->nama_aksesoris}}
+                        </label>
+                        <!-- <input type="number" name="jumlah"> -->
+                    </div>
+                    @endforeach
                 </div>
             </div>
             <div class="text-center">
