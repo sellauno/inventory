@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Aksesoris;
 use App\Barang;
 use Illuminate\Http\Request;
 
@@ -13,7 +15,8 @@ class BarangController extends Controller
     }
     public function add()
     {
-        return view('barangadd');
+        $data = Aksesoris::all();
+        return view('barangadd', ['aksesoris' => $data]);
     }
 
     public function create(Request $request)
