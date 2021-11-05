@@ -50,6 +50,7 @@
           <th scope="col">No</th>
           <th scope="col">Nama Barang</th>
           <th scope="col">Warna</th>
+          <th scope="col">Detail</th>
           <th scope="col">Action</th>
         </tr>
       </thead>
@@ -61,6 +62,7 @@
                           echo $no; ?></th>
           <td>{{$row->nama_barang}}</td>
           <td>{{$row->warna}}</td>
+          <td>{{$row->detail}}</td>
           <td>
             <a href="/barang/delete/{{$row->id_barang}}">
               <button type="button" class="btn btn-outline-danger btn-sm">Hapus</button>

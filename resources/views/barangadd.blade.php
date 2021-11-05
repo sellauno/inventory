@@ -54,6 +54,12 @@
                     <input type="text" class="form-control" name="warna">
                 </div>
             </div>
+            <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Detail</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="detail">
+                </div>
+            </div>
             <div class="text-center">
                 <button type="submit" class="btn btn-primary">Simpan</button>
                 <button type="reset" class="btn btn-secondary">Reset</button>
