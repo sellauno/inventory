@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Pembelian;
+use App\Barang;
+use App\Aksesoris;
 use Illuminate\Http\Request;
 
 class PembelianController extends Controller
@@ -15,7 +17,9 @@ class PembelianController extends Controller
 
     public function add()
     {
-        return view('pembelianadd');
+        $data = Barang::all();
+        $data2 = Aksesoris::all();
+        return view('pembelianadd', ['barang' => $data, 'aksesoris' => $data2]);
     }
 
     public function create(Request $request)
@@ -25,7 +29,8 @@ class PembelianController extends Controller
             'id_barang' => $request->id_barang,
             'id_aksesoris' => $request->id_aksesoris,
             'jml_pembelian' => $request->jml_pembelian,
-            'total_harga' => $request->total_harga
+            'total_harga' => $request->total_harga,
+            'no_pembelian' => $request->no_pembelian
         ]);
         return redirect('/pembelian');
     }
@@ -33,7 +38,9 @@ class PembelianController extends Controller
     public function edit($id)
     {
         $data = Pembelian::find($id);
-        return view('pembelianedit', ['pembelian' => $data]);
+        $data2 = Barang::all();
+        $data3 = Aksesoris::all();
+        return view('pembelianedit', ['pembelian' => $data, 'barang' => $data2, 'aksesoris' => $data3]);
     }
 
     public function update($id, Request $request)
@@ -44,6 +51,7 @@ class PembelianController extends Controller
         $pembelian->id_aksesoris = $request->id_aksesoris;
         $pembelian->jml_pembelian = $request->jml_pembelian;
         $pembelian->total_harga = $request->total_harga;
+        $pembelian->no_pembelian = $request->no_pembelian;
         $pembelian->save();
         return redirect('/pembelian');
     }

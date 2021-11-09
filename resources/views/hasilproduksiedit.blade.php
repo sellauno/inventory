@@ -49,7 +49,7 @@
                 </div>
             </div>
             <div class="row mb-3">
-                <label class="col-sm-2 col-form-label">Select</label>
+                <label class="col-sm-2 col-form-label">Barang</label>
                 <div class="col-sm-10">
                     <select class="form-select" aria-label="Default select example" name="id_barang">
                         <option>Pilih Barang</option>

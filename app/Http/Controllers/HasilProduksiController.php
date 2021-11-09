@@ -58,4 +58,11 @@ class HasilProduksiController extends Controller
         $produksi->delete();
         return redirect('/hasilproduksi');
     }
+
+    public function detail($id)
+    {
+        $data = HasilProduksi::find($id);   
+        $data2 = Barang::all();
+        return view('hasilproduksidetail', ['produksi' => $data, 'barang' => $data2]);
+    }
 }

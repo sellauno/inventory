@@ -58,23 +58,28 @@
       <tbody>
         <?php $no = 0; ?>
         @foreach($produksi as $row)
-        <tr>
-          <th scope="row"><?php $no++;
-                          echo $no; ?></th>
-          <td>{{$row->tgl}}</td>
-          <td>{{$row->id_barang}}</td>
-          <td>{{$row->first_qty}}</td>
-          <td>{{$row->qty}}</td>
-          <td>{{$row->reject_qty}}</td>
-          <td>
-            <a href="/hasilproduksi/delete/{{$row->id_produksi}}">
-              <button type="button" class="btn btn-outline-danger btn-sm">Hapus</button>
-            </a>
-            <a href="/hasilproduksi/edit/{{$row->id_produksi}}">
-              <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
-            </a>
-          </td>
-        </tr>
+        <a href="/barang">
+          <tr>
+            <th scope="row"><?php $no++;
+                            echo $no; ?></th>
+            <td>{{$row->tgl}}</td>
+            <td>{{$row->id_barang}}</td>
+            <td>{{$row->first_qty}}</td>
+            <td>{{$row->qty}}</td>
+            <td>{{$row->reject_qty}}</td>
+            <td>
+              <a href="/hasilproduksi/delete/{{$row->id_produksi}}">
+                <button type="button" class="btn btn-outline-danger btn-sm">Hapus</button>
+              </a>
+              <a href="/hasilproduksi/edit/{{$row->id_produksi}}">
+                <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
+              </a>
+              <a href="/hasilproduksi/detail/{{$row->id_produksi}}">
+                <button type="button" class="btn btn-outline-warning btn-sm">Lihat</button>
+              </a>
+            </td>
+          </tr>
+        </a>
         @endforeach
       </tbody>
     </table>

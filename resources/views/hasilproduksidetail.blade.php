@@ -37,24 +37,24 @@
 @section('content')
 <div class="card">
     <div class="card-body">
-        <h5 class="card-title">Form Tambah Data</h5>
+        <h5 class="card-title">Detail Produksi</h5>
 
         <!-- Horizontal Form -->
-        <form action="/hasilproduksi/create" method="post">
+        <form>
             @csrf
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Tanggal</label>
                 <div class="col-sm-10">
-                    <input type="date" class="form-control" name="tgl">
+                    <input type="date" class="form-control" name="tgl" value="{{$produksi->tgl}}">
                 </div>
             </div>
             <div class="row mb-3">
                 <label class="col-sm-2 col-form-label">Barang</label>
                 <div class="col-sm-10">
                     <select class="form-select" aria-label="Default select example" name="id_barang">
-                        <option selected>Pilih Barang</option>
+                        <option>Pilih Barang</option>
                         @foreach($barang as $row)
-                        <option value="{{$row->id_barang}}">{{$row->nama_barang}}</option>
+                        <option <?php if($produksi->id_barang == $row->id_barang) echo "selected"; ?> value="{{$row->id_barang}}">{{$row->nama_barang}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -62,29 +62,26 @@
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">First Quantity</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" name="first_qty">
+                    <input type="number" class="form-control" name="first_qty" value="{{$produksi->first_qty}}">
                 </div>
             </div>
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Quantity</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" name="qty">
+                    <input type="number" class="form-control" name="qty" value="{{$produksi->qty}}">
                 </div>
             </div>
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Reject</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" name="reject_qty">
+                    <input type="number" class="form-control" name="reject_qty" value="{{$produksi->reject_qty}}">
                 </div>
             </div>
             <div class="text-center">
-                <button type="submit" class="btn btn-primary">Simpan</button>
-                <button type="reset" class="btn btn-secondary">Reset</button>
-                <a href="/hasilproduksi"><button type="button" class="btn btn-danger">Cancel</button></a>
+                <a href="/hasilproduksi"><button type="button" class="btn btn-danger">Kembali</button></a>
 
             </div>
         </form><!-- End Horizontal Form -->
-
     </div>
 </div>
 

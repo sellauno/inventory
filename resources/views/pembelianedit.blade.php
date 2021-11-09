@@ -16,7 +16,7 @@
 </li><!-- End Barang Nav -->
 
 <li class="nav-item">
-    <a class="nav-link collapsed" data-bs-target="#forms-nav" href="/pembelian">
+    <a class="nav-link " data-bs-target="#forms-nav" href="/pembelian">
         <i class="bi bi-journal-text"></i><span>Pembelian</span>
     </a>
 </li><!-- End Pembelian Nav -->
@@ -28,7 +28,7 @@
 </li><!-- End Produksi Nav -->
 
 <li class="nav-item">
-    <a class="nav-link " data-bs-target="#icons-nav" href="/aksesoris">
+    <a class="nav-link collapsed" data-bs-target="#icons-nav" href="/aksesoris">
         <i class="bi bi-gem"></i><span>Aksesoris</span>
     </a>
 </li><!-- End Aksesoris Nav -->
@@ -46,31 +46,47 @@
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Tanggal</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="tgl_pembelian" value="{{$pembelian->tgl_pembelian}}">
+                    <input type="date" class="form-control" name="tgl_pembelian" value="{{$pembelian->tgl_pembelian}}">
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">Barang</label>
+                <label class="col-sm-2 col-form-label">Barang</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" name="id_barang" value="{{pembelian->id_barang}}">
+                    <select class="form-select" aria-label="Default select example" name="id_barang">
+                        <option selected>Pilih Barang</option>
+                        @foreach($barang as $row)
+                        <option value="{{$row->id_barang}}" <?php if($pembelian->id_barang == $row->id_barang) echo "selected"; ?>>{{$row->nama_barang}}</option>
+                        @endforeach
+                    </select>
                 </div>
-            </div>
+            </div>            
             <div class="row mb-3">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">Aksesoris</label>
+                <label class="col-sm-2 col-form-label">Aksesoris</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" name="id_aksesoris" value="{{pembelian->id_aksesoris}}">
+                    <select class="form-select" aria-label="Default select example" name="id_aksesoris">
+                        <option selected>Pilih Barang</option>
+                        @foreach($aksesoris as $row)
+                        <option value="{{$row->id_aksesoris}}"  <?php if($pembelian->id_aksesoris == $row->id_aksesoris) echo "selected"; ?>>{{$row->nama_aksesoris}}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Jumlah</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" name="jml_pembelian" value="{{pembelian->jml_pembelian}}">
+                    <input type="number" class="form-control" name="jml_pembelian" value="{{$pembelian->jml_pembelian}}">
                 </div>
             </div>
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Total</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" name="total_harga" value="{{pembelian->total_harga}}">
+                    <input type="number" class="form-control" name="total_harga" value="{{$pembelian->total_harga}}">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Nomor Pembelian</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" name="no_pembelian" value="{{$pembelian->no_pembelian}}">
                 </div>
             </div>
             <div class="text-center">

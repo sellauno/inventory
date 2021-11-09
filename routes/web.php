@@ -50,3 +50,4 @@ Route::post('/hasilproduksi/create', 'HasilProduksiController@create');
 Route::get('/hasilproduksi/edit/{id}', 'HasilProduksiController@edit');
 Route::post('/hasilproduksi/update/{id}','HasilProduksiController@update');
 Route::get('/hasilproduksi/delete/{id}', 'HasilProduksiController@delete');
+Route::get('/hasilproduksi/detail/{id}', 'HasilProduksiController@detail');
