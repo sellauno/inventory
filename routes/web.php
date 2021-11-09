@@ -40,3 +40,10 @@ Route::post('/barang/create', 'BarangController@create');
 Route::get('/barang/edit/{id}', 'BarangController@edit');
 Route::post('/barang/update/{id}','BarangController@update');
 Route::get('/barang/delete/{id}', 'BarangController@delete');
+
+Route::get('/pembelian/add', 'PembelianController@add');
+Route::post('/pembelian/create', 'PembelianController@create');
+
+Route::get('/pembelian/edit/{id}', 'PembelianController@edit');
+Route::post('/pembelian/update/{id}','PembelianController@update');
+Route::get('/pembelian/delete/{id}', 'PembelianController@delete');
