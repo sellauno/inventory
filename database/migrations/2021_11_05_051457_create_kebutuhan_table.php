@@ -15,8 +15,8 @@ class CreateKebutuhanTable extends Migration
     {
         Schema::create('kebutuhan', function (Blueprint $table) {
             $table->bigIncrements('id_kebutuhan');
-            $table->integer('id_barang');
-            $table->integer('id_aksesoris');
+            $table->integer('id_barang')->references('id_barang')->on('barang');
+            $table->integer('id_aksesoris')->references('id_aksesoris')->on('aksesoris');
             $table->integer('jumlah');
             $table->timestamps();
         });

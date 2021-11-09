@@ -16,10 +16,10 @@ class CreateHasilproduksiTable extends Migration
         Schema::create('hasilproduksi', function (Blueprint $table) {
             $table->bigIncrements('id_produksi');
             $table->date('tgl');
-            $table->integer('id_barang');
+            $table->integer('id_barang')->references('id_barang')->on('barang');
             $table->integer('first_qty');
-            $table->integer('qty');
-            $table->integer('reject_qty');
+            $table->integer('qty')->nullable();
+            $table->integer('reject_qty')->nullable();
             $table->timestamps();
         });
     }
