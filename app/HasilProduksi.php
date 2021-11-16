@@ -8,6 +8,6 @@ class HasilProduksi extends Model
 {
     public $primaryKey  = 'id_produksi';
     public $table = 'hasilproduksi';
-    protected $fillable = ['tgl', 'id_barang', 'first_qty', 'qty', 'reject_qty'];
+    protected $fillable = ['id_order', 'id_barang', 'first_qty', 'qty', 'reject_qty'];
 
 }

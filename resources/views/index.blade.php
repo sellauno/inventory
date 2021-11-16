@@ -35,93 +35,38 @@
 @endsection
 
 @section('content')
-<!-- Barang Card -->
-<div class="col-xxl-4 col-md-6">
-  <div class="card info-card sales-card">
-
-    <div class="card-body">
-      <h5 class="card-title">Barang</h5>
-
-      <div class="d-flex align-items-center">
-        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-          <i class="bi bi-cart"></i>
-        </div>
-        <div class="ps-3">
-          <h6>15</h6>
-          <span class="text-muted small pt-2 ps-1">item</span>
-
-        </div>
-      </div>
-    </div>
-
+<div class="card-body">
+  <div class="card-title">
+    <a href="order/add">
+      <button type="button" class="btn btn-primary">Tambah Data</button>
+    </a>
   </div>
-</div><!-- End Barang Card -->
-
-<!-- Aksesoris Card -->
-<div class="col-xxl-4 col-md-6">
-  <div class="card info-card revenue-card">
-
-    <div class="card-body">
-      <h5 class="card-title">Aksesoris</h5>
-
-      <div class="d-flex align-items-center">
-        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-          <i class="bi bi-currency-dollar"></i>
-        </div>
-        <div class="ps-3">
-          <h6>10</h6>
-          <span class="text-muted small pt-2 ps-1">data</span>
-
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div><!-- End Aksesoris Card -->
-
-<!-- Pembelian Card -->
-<div class="col-xxl-4 col-xl-12">
-
-  <div class="card info-card customers-card">
-    <div class="card-body">
-      <h5 class="card-title">Pembelian</h5>
-
-      <div class="d-flex align-items-center">
-        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-          <i class="bi bi-people"></i>
-        </div>
-        <div class="ps-3">
-          <h6>1244</h6>
-          <span class="text-muted small pt-2 ps-1">data</span>
-
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-</div><!-- End Pembelian Card -->
-<!-- Hasil Produksi Card -->
-<div class="col-xxl-4 col-xl-12">
-
-  <div class="card info-card customers-card">
-    <div class="card-body">
-      <h5 class="card-title">Hasil Produksi</h5>
-
-      <div class="d-flex align-items-center">
-        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-          <i class="bi bi-people"></i>
-        </div>
-        <div class="ps-3">
-          <h6>1244</h6>
-          <span class="text-muted small pt-2 ps-1">data</span>
-
-        </div>
-      </div>
-
-    </div>
-
-  </div><!-- Hasil Produksi -->
 </div>
+<!-- Order Card -->
+@foreach($order as $row)
+<div class="col-xxl-4 col-xl-12">
+  <div class="card info-card customers-card">
+    <a href="/orderdetail/{{$row->id_order}}">
+    <div class="card-body">
+      <h5 class="card-title">{{$row->kode_order}}</h5>
+
+      <div class="d-flex align-items-center">
+        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+          <i class="bi bi-box"></i>
+        </div>
+        <div class="ps-3">
+          <h6>{{$row->tgl}}</h6>
+          <span class="text-muted small pt-2 ps-1">{{$row->keterangan}}</span>
+        </div>
+      </div>
+
+    </div>
+    </a>
+  </div>
+</div>
+@endforeach
+<!-- End Order Card -->
+
+<!-- Hasil Produksi Card -->
 
 @endsection

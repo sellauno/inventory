@@ -17,6 +17,7 @@ class CreateAksesorisTable extends Migration
             $table->bigIncrements('id_aksesoris');
             $table->string('nama_aksesoris');
             $table->integer('harga');
+            $table->integer('stok')->nullable();
             $table->timestamps();
         });
     }

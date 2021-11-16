@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Order;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
     public function toDashboard()
     {
-        return view('index');
+        $data = Order::all();
+        return view('index', ['order' => $data]);
     }
 }

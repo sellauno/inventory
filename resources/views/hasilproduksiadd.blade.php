@@ -43,9 +43,14 @@
         <form action="/hasilproduksi/create" method="post">
             @csrf
             <div class="row mb-3">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">Tanggal</label>
+                <label class="col-sm-2 col-form-label">Order</label>
                 <div class="col-sm-10">
-                    <input type="date" class="form-control" name="tgl">
+                    <select class="form-select" aria-label="Default select example" name="id_barang">
+                        <option selected>Pilih Barang</option>
+                        @foreach($order as $row)
+                        <option value="{{$row->id_order}}">{{$row->kode_order}}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
             <div class="row mb-3">

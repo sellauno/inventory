@@ -48,7 +48,7 @@
       <thead>
         <tr>
           <th scope="col">No</th>
-          <th scope="col">Tanggal</th>
+          <th scope="col">Order</th>
           <th scope="col">Barang</th>
           <th scope="col">First Quantity</th>
           <th scope="col">Quantity</th>
@@ -62,7 +62,7 @@
           <tr>
             <th scope="row"><?php $no++;
                             echo $no; ?></th>
-            <td>{{$row->tgl}}</td>
+            <td>{{$row->id_order}}</td>
             <td>{{$row->id_barang}}</td>
             <td>{{$row->first_qty}}</td>
             <td>{{$row->qty}}</td>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\HasilProduksi;
 use App\Barang;
+use App\Order;
 use Illuminate\Http\Request;
 
 class HasilProduksiController extends Controller
@@ -18,13 +19,14 @@ class HasilProduksiController extends Controller
     public function add()
     {
         $data = Barang::all();
-        return view('hasilproduksiadd', ['barang' => $data]);
+        $data2 = Order::all();
+        return view('hasilproduksiadd', ['barang' => $data, 'order' => $data2]);
     }
 
     public function create(Request $request)
     {
         HasilProduksi::create([
-            'tgl' => $request->tgl,
+            'id_order' => $request->id_order,
             'id_barang' => $request->id_barang,
             'first_qty' => $request->first_qty,
             'qty' => $request->qty,

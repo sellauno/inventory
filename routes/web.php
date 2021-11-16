@@ -51,3 +51,8 @@ Route::get('/hasilproduksi/edit/{id}', 'HasilProduksiController@edit');
 Route::post('/hasilproduksi/update/{id}','HasilProduksiController@update');
 Route::get('/hasilproduksi/delete/{id}', 'HasilProduksiController@delete');
 Route::get('/hasilproduksi/detail/{id}', 'HasilProduksiController@detail');
+
+
+Route::get('/orderdetail/{id}', 'OrderController@toOrderDetail');
+Route::get('/order/add', 'OrderController@add');
+Route::post('/order/create', 'OrderController@create');

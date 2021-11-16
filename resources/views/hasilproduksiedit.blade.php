@@ -43,9 +43,14 @@
         <form action="/hasilproduksi/update/{{$produksi->id_produksi}}" method="post">
             @csrf
             <div class="row mb-3">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">Tanggal</label>
+                <label class="col-sm-2 col-form-label">Barang</label>
                 <div class="col-sm-10">
-                    <input type="date" class="form-control" name="tgl" value="{{$produksi->tgl}}">
+                    <select class="form-select" aria-label="Default select example" name="id_barang">
+                        <option>Pilih Barang</option>
+                        @foreach($order as $row)
+                        <option <?php if($produksi->id_order == $row->id_order) echo "selected"; ?> value="{{$row->id_order}}">{{$row->kode_order}}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
             <div class="row mb-3">
