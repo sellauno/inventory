@@ -19,7 +19,7 @@ class PembelianController extends Controller
     {
         $data = Barang::all();
         $data2 = Aksesoris::all();
-        return view('pembelianadd', ['barang' => $data, 'aksesoris' => $data2]);
+        return view('pembelianadd', ['barang' => $data, 'aksesoris' => $data2, 'id' => null]);
     }
 
     public function create(Request $request)
@@ -61,5 +61,12 @@ class PembelianController extends Controller
         $pembelian = Pembelian::find($id);
         $pembelian->delete();
         return redirect('/pembelian');
+    }
+
+    public function addFromOrder($id)
+    {
+        $data = Barang::all();
+        $data2 = Aksesoris::all();
+        return view('pembelianadd', ['barang' => $data, 'aksesoris' => $data2, 'id' => $id]);
     }
 }

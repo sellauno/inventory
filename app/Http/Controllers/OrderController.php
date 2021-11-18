@@ -6,15 +6,20 @@ use App\HasilProduksi;
 use App\Order;
 use App\Pembelian;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
+use \Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
     public function toOrderDetail($id)
     {
         $data = Order::find($id);
-        $data2 = HasilProduksi::where('id_order', '=', $id)->get();
-        $idproduksi = HasilProduksi::select('id_produksi')->where('id_order', '=', $id)->get();
-        $data3 = Pembelian::where('id_produksi', '=', $idproduksi)->get();
+        $data2 = DB::table('hasilproduksi')->where('id_order', '=', $id)->get();
+        $datax = DB::table('hasilproduksi')->where('id_order', '=', $id);
+        $data3 = DB::table('pembelian')
+            ->joinSub($datax, 'hasilproduksi', function ($join) {
+                $join->on('pembelian.id_produksi', '=', 'hasilproduksi.id_produksi');
+            })->get();
         return view('orderdetail', ['order' => $data, 'produksi' => $data2, 'pembelian' => $data3]);
     }
     public function add()

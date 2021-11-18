@@ -56,7 +56,9 @@
       <div class="d-flex align-items-center">
         <h6>Produksi</h6>
         <div class="ps-3">
-          <i class="bi bi-add"></i>
+          <a href="/hasilproduksi/add/{{$order->id_order}}">
+            <i class="bi bi-plus-circle"></i>
+          </a>
         </div>
       </div>
       <!-- Table with stripped rows -->
@@ -77,10 +79,14 @@
           <tr>
             <th scope="row"><?php $no++;
                             echo $no; ?></th>
-            <td>Brandon Jacob</td>
-            <td>Designer</td>
-            <td>28</td>
-            <td>2016-05-25</td>
+            <td>{{$row->id_order}}</td>
+            <td>{{$row->id_barang}}</td>
+            <td>{{$row->first_qty}}</td>
+            <td>{{$row->qty}}</td>
+            <td>{{$row->reject_qty}}</td>
+            <td><a href="/pembelian/add/{{$row->id_produksi}}">
+            <i class="bi bi-plus-circle"></i>
+          </a></td>
           </tr>
           @endforeach
         </tbody>

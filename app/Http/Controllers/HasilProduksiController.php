@@ -20,7 +20,7 @@ class HasilProduksiController extends Controller
     {
         $data = Barang::all();
         $data2 = Order::all();
-        return view('hasilproduksiadd', ['barang' => $data, 'order' => $data2]);
+        return view('hasilproduksiadd', ['barang' => $data, 'order' => $data2, 'id' => null]);
     }
 
     public function create(Request $request)
@@ -46,6 +46,7 @@ class HasilProduksiController extends Controller
     {
         $produksi = HasilProduksi::find($id);
         $produksi->tgl = $request->tgl;
+        $produksi->id_order = $request->id_order;
         $produksi->id_barang = $request->id_barang;
         $produksi->first_qty = $request->first_qty;
         $produksi->qty = $request->qty;
@@ -66,5 +67,12 @@ class HasilProduksiController extends Controller
         $data = HasilProduksi::find($id);   
         $data2 = Barang::all();
         return view('hasilproduksidetail', ['produksi' => $data, 'barang' => $data2]);
+    }
+
+    public function addFromOrder($id)
+    {
+        $data = Barang::all();
+        $data2 = Order::all();
+        return view('hasilproduksiadd', ['barang' => $data, 'order' => $data2, 'id' => $id]);
     }
 }

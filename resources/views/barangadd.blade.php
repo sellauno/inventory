@@ -59,11 +59,11 @@
                 <div class="col-sm-10">
                     @foreach($aksesoris as $row)
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="gridCheck1" value="{{$row->id_aksesoris}}">
+                        <input class="form-check-input" type="checkbox" id="gridCheck1" name="id_aksesoris[]" value="{{$row->id_aksesoris}}">
                         <label class="form-check-label" for="gridCheck1">
                             {{$row->nama_aksesoris}}
                         </label>
-                        <!-- <input type="number" name="jumlah"> -->
+                        <input type="number" name="jumlah[]" placeholder="Jumlah">
                     </div>
                     @endforeach
                 </div>

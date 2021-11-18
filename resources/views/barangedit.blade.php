@@ -56,16 +56,36 @@
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">Detail</label>
+                <legend class="col-form-label col-sm-2 pt-0">Kebutuhan Aksesoris</legend>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="warna" value="{{$barang->detail}}">
+                    @foreach($kebutuhan as $row)
+                    <div class="form-check">
+                        <input type="hidden" name="id_kebutuhan[]" value="{{$row->id_kebutuhan}}" readonly>
+                        <input type="text" name="id_aksesoris[]" value="{{$row->id_aksesoris}}" readonly>
+                        <input type="number" name="jumlah[]" placeholder="Jumlah" value="{{$row->jumlah}}">
+                        <br><br>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+            <div class="row mb-3">
+                <legend class="col-form-label col-sm-2 pt-0">Kebutuhan Aksesoris</legend>
+                <div class="col-sm-10">
+                    @foreach($aksesoris as $row)
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="gridCheck1" name="id_aksesorisadd[]" value="{{$row->id_aksesoris}}">
+                        <label class="form-check-label" for="gridCheck1">
+                            {{$row->nama_aksesoris}}
+                        </label>
+                        <input type="number" name="jumlahadd[]" placeholder="Jumlah">
+                    </div>
+                    @endforeach
                 </div>
             </div>
             <div class="text-center">
                 <button type="submit" class="btn btn-primary">Simpan</button>
                 <button type="reset" class="btn btn-secondary">Reset</button>
                 <a href="/aksesoris"><button type="button" class="btn btn-danger">Cancel</button></a>
-
             </div>
         </form><!-- End Horizontal Form -->
 

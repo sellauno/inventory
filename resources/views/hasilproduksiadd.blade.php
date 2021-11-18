@@ -45,10 +45,12 @@
             <div class="row mb-3">
                 <label class="col-sm-2 col-form-label">Order</label>
                 <div class="col-sm-10">
-                    <select class="form-select" aria-label="Default select example" name="id_barang">
-                        <option selected>Pilih Barang</option>
+                    <select class="form-select" aria-label="Default select example" name="id_order">
+                        <option selected>Pilih Batch Order</option>
                         @foreach($order as $row)
-                        <option value="{{$row->id_order}}">{{$row->kode_order}}</option>
+                        <option value="{{$row->id_order}}" <?php if($id!=null){ if($row->id_order==$id){ echo "selected";}}?>>
+                            {{$row->kode_order}}
+                        </option>
                         @endforeach
                     </select>
                 </div>

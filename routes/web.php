@@ -56,3 +56,6 @@ Route::get('/hasilproduksi/detail/{id}', 'HasilProduksiController@detail');
 Route::get('/orderdetail/{id}', 'OrderController@toOrderDetail');
 Route::get('/order/add', 'OrderController@add');
 Route::post('/order/create', 'OrderController@create');
+
+Route::get('/hasilproduksi/add/{id}', 'HasilProduksiController@addFromOrder');
+Route::get('/pembelian/add/{id}', 'PembelianController@addFromOrder');
