@@ -28,6 +28,7 @@ class PembelianController extends Controller
             'tgl_pembelian' => $request->tgl_pembelian,
             'id_barang' => $request->id_barang,
             'id_aksesoris' => $request->id_aksesoris,
+            'id_produksi' => $request->id_produksi,
             'jml_pembelian' => $request->jml_pembelian,
             'total_harga' => $request->total_harga,
             'no_pembelian' => $request->no_pembelian
@@ -47,6 +48,7 @@ class PembelianController extends Controller
     {
         $pembelian = Pembelian::find($id);
         $pembelian->tgl_pembelian = $request->tgl_pembelian;
+        $pembelian->id_produksi = $request->id_produksi;
         $pembelian->id_barang = $request->id_barang;
         $pembelian->id_aksesoris = $request->id_aksesoris;
         $pembelian->jml_pembelian = $request->jml_pembelian;

@@ -61,7 +61,7 @@
                     <select class="form-select" aria-label="Default select example" name="id_barang">
                         <option selected>Pilih Barang</option>
                         @foreach($barang as $row)
-                        <option value="{{$row->id_barang}}">{{$row->nama_barang}}</option>
+                        <option value="{{$row->id_barang}}">{{$row->nama_barang}} ({{$row->warna}})</option>
                         @endforeach
                     </select>
                 </div>

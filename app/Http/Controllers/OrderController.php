@@ -14,13 +14,35 @@ class OrderController extends Controller
     public function toOrderDetail($id)
     {
         $data = Order::find($id);
-        $data2 = DB::table('hasilproduksi')->where('id_order', '=', $id)->get();
+        // $data2 = DB::table('barang')
+        //     ->rightjoin('hasilproduksi', 'hasilproduksi.id_barang', '=', 'barang.id_barang')
+        //     ->leftjoin('kebutuhan', 'kebutuhan.id_barang', '=', 'barang.id_barang')
+        //     ->select('hasilproduksi.*', 'barang.*', 'kebutuhan.id_barang', 'kebutuhan.jumlah')
+        //     ->where('hasilproduksi.id_order', '=', $id)
+        //     ->get();
+        $data2 = DB::table('barang')
+            ->rightjoin('hasilproduksi', 'hasilproduksi.id_barang', '=', 'barang.id_barang')
+            ->select('hasilproduksi.*', 'barang.*')
+            ->where('hasilproduksi.id_order', '=', $id)
+            ->get();
         $datax = DB::table('hasilproduksi')->where('id_order', '=', $id);
         $data3 = DB::table('pembelian')
             ->joinSub($datax, 'hasilproduksi', function ($join) {
                 $join->on('pembelian.id_produksi', '=', 'hasilproduksi.id_produksi');
-            })->get();
-        return view('orderdetail', ['order' => $data, 'produksi' => $data2, 'pembelian' => $data3]);
+            })
+            ->leftjoin('barang', 'barang.id_barang', '=', 'pembelian.id_barang')
+            ->leftjoin('aksesoris', 'aksesoris.id_aksesoris', '=', 'pembelian.id_aksesoris')
+            ->select('pembelian.*', 'barang.nama_barang', 'barang.warna', 'aksesoris.nama_aksesoris')
+            ->orderBy('pembelian.id_barang')
+            ->get();
+        $datakbt = DB::table('kebutuhan')
+        ->join('hasilproduksi', 'hasilproduksi.id_barang', '=', 'kebutuhan.id_barang')
+        ->join('barang', 'barang.id_barang', '=', 'kebutuhan.id_barang')
+        ->join('aksesoris', 'aksesoris.id_aksesoris', '=', 'kebutuhan.id_aksesoris')
+        ->select('aksesoris.id_aksesoris','aksesoris.nama_aksesoris', 'kebutuhan.*', 'hasilproduksi.id_produksi')
+        ->where('hasilproduksi.id_order', '=', $id)
+        ->get();
+        return view('orderdetail', ['order' => $data, 'produksi' => $data2, 'pembelian' => $data3, 'kebutuhan' => $datakbt]);
     }
     public function add()
     {

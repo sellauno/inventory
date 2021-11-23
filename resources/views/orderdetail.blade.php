@@ -55,18 +55,12 @@
       <br><br>
       <div class="d-flex align-items-center">
         <h6>Produksi</h6>
-        <div class="ps-3">
-          <a href="/hasilproduksi/add/{{$order->id_order}}">
-            <i class="bi bi-plus-circle"></i>
-          </a>
-        </div>
       </div>
       <!-- Table with stripped rows -->
       <table class="table table-striped">
         <thead>
           <tr>
             <th scope="col">No</th>
-            <th scope="col">Order</th>
             <th scope="col">Barang</th>
             <th scope="col">First Quantity</th>
             <th scope="col">Quantity</th>
@@ -79,23 +73,41 @@
           <tr>
             <th scope="row"><?php $no++;
                             echo $no; ?></th>
-            <td>{{$row->id_order}}</td>
-            <td>{{$row->id_barang}}</td>
+            <td>{{$row->nama_barang}} ({{$row->warna}})</td>
             <td>{{$row->first_qty}}</td>
             <td>{{$row->qty}}</td>
             <td>{{$row->reject_qty}}</td>
-            <td><a href="/pembelian/add/{{$row->id_produksi}}">
-            <i class="bi bi-plus-circle"></i>
-          </a></td>
+            <!-- <td><a href="/pembelian/add/{{$row->id_produksi}}">
+                <i class="bi bi-plus-circle"></i>
+              </a></td> -->
+
+            <td>
+              <a href="/hasilproduksi/delete/{{$row->id_produksi}}">
+                <button type="button" class="btn btn-outline-danger btn-sm">Hapus</button>
+              </a>
+              <a href="/hasilproduksi/edit/{{$row->id_produksi}}">
+                <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
+              </a>
+              <a href="/hasilproduksi/detail/{{$row->id_produksi}}">
+                <button type="button" class="btn btn-outline-warning btn-sm">Lihat</button>
+              </a>
+            </td>
           </tr>
           @endforeach
         </tbody>
       </table>
       <!-- End Table with stripped rows -->
+      <div class="d-flex align-items-center">
+        <h6><a href="/hasilproduksi/add/{{$order->id_order}}">
+            <i class="bi bi-plus-circle"></i>
+          </a></h6>
+        <div class="ps-3">
+          Tambah Data
+        </div>
+      </div>
 
-      <br><br>
+      <!--  <br><br>
       <h6>Pembelian</h6>
-      <!-- Table with stripped rows -->
       <table class="table table-striped">
         <thead>
           <tr>
@@ -111,20 +123,83 @@
           <?php $no = 0; ?>
           @foreach($pembelian as $row)
           <tr>
-            <th scope="row">1</th>
-            <td>Brandon Jacob</td>
-            <td>Designer</td>
-            <td>28</td>
-            <td>2016-05-25</td>
+            <th scope="row"><?php $no++;
+                            echo $no; ?></th>
+            <td>{{$row->tgl_pembelian}}</td>
+            <td>{{$row->nama_barang}} ({{$row->warna}})</td>
+            <td>{{$row->nama_aksesoris}}</td>
+            <td>{{$row->jml_pembelian}}</td>
+            <td>{{$row->total_harga}}</td>
           </tr>
           @endforeach
         </tbody>
-      </table>
-      <!-- End Table with stripped rows -->
+      </table>  -->
     </div>
   </div>
 
 </div><!-- End Order Card -->
 
+@foreach($produksi as $pro)
+<div class="card info-card customers-card">
+  <div class="card-body">
+    <br><br>
+    <h6>{{$pro->nama_barang}} ({{$pro->warna}})</h6>
+
+    <!-- Default Table -->
+    @foreach($kebutuhan as $kbt)
+    <?php if ($pro->id_barang == $kbt->id_barang) { ?>
+      <!-- <h6>{{$kbt->nama_aksesoris}} </h6> -->
+      <div>
+        <h5 class="card-title">{{$kbt->nama_aksesoris}}</h5>
+      </div>
+      <!-- Table with stripped rows -->
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">No</th>
+            <th scope="col">Tanggal</th>
+            <th scope="col">Jumlah</th>
+            <th scope="col">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php $no = 0; ?>
+          @foreach($pembelian as $row)
+          <?php
+          if ($kbt->id_aksesoris == $row->id_aksesoris) {
+          ?>
+            <tr>
+              <th scope="row"><?php $no++;
+                              echo $no; ?></th>
+              <td>{{$row->tgl_pembelian}}</td>
+              <td>{{$row->jml_pembelian}}</td>
+              <td>{{$row->total_harga}}</td>
+            </tr>
+          <?php
+          }
+          ?>
+          @endforeach
+        </tbody>
+      </table>
+      <?php
+      // if ($no == 0) {
+      //   echo "<p>Tidak ada data</p>";
+      // }
+      ?>
+      <div class="d-flex align-items-center">
+        <h6><a href="/pembelian/add/{{$order->id_order}}">
+            <i class="bi bi-plus-circle"></i>
+          </a></h6>
+        <div class="ps-3">
+          Tambah Data
+        </div>
+      </div>
+      <br>
+    <?php } ?>
+    @endforeach
+    <!-- End Default Table Example -->
+  </div>
+</div>
+@endforeach
 
 @endsection

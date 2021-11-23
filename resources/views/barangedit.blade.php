@@ -37,7 +37,7 @@
 @section('content')
 <div class="card">
     <div class="card-body">
-        <h5 class="card-title">Form Tambah Data</h5>
+        <h5 class="card-title">Form Edit Data</h5>
 
         <!-- Horizontal Form -->
         <form action="/barang/update/{{$barang->id_barang}}" method="post">
@@ -61,7 +61,11 @@
                     @foreach($kebutuhan as $row)
                     <div class="form-check">
                         <input type="hidden" name="id_kebutuhan[]" value="{{$row->id_kebutuhan}}" readonly>
-                        <input type="text" name="id_aksesoris[]" value="{{$row->id_aksesoris}}" readonly>
+                        <!-- <input type="text" name="id_aksesoris[]" value="{{$row->id_aksesoris}}" readonly> -->
+                        <input class="form-check-input" type="checkbox" id="gridCheck1" name="id_aksesoris[]" value="{{$row->id_aksesoris}}" checked>
+                        <label class="form-check-label" for="gridCheck1">
+                            {{$row->nama_aksesoris}}
+                        </label>
                         <input type="number" name="jumlah[]" placeholder="Jumlah" value="{{$row->jumlah}}">
                         <br><br>
                     </div>
@@ -69,7 +73,7 @@
                 </div>
             </div>
             <div class="row mb-3">
-                <legend class="col-form-label col-sm-2 pt-0">Kebutuhan Aksesoris</legend>
+                <legend class="col-form-label col-sm-2 pt-0">Tambah Kebutuhan Aksesoris</legend>
                 <div class="col-sm-10">
                     @foreach($aksesoris as $row)
                     <div class="form-check">

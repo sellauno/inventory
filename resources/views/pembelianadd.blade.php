@@ -42,6 +42,10 @@
         <!-- Horizontal Form -->
         <form action="/pembelian/create" method="post">
             @csrf
+            <?php if ($id != null) { ?>
+                <input type="hidden" name="id_produksi" value="{{$id}}">
+            <?php } ?>
+
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Tanggal</label>
                 <div class="col-sm-10">
@@ -54,34 +58,49 @@
                     <select class="form-select" aria-label="Default select example" name="id_barang">
                         <option selected>Pilih Barang</option>
                         @foreach($barang as $row)
-                        <option value="{{$row->id_barang}}">{{$row->nama_barang}}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>            
-            <div class="row mb-3">
-                <label class="col-sm-2 col-form-label">Aksesoris</label>
-                <div class="col-sm-10">
-                    <select class="form-select" aria-label="Default select example" name="id_aksesoris">
-                        <option selected>Pilih Barang</option>
-                        @foreach($aksesoris as $row)
-                        <option value="{{$row->id_aksesoris}}">{{$row->nama_aksesoris}}</option>
+                        <option value="{{$row->id_barang}}">{{$row->nama_barang}} {{$row->warna}}</option>
                         @endforeach
                     </select>
                 </div>
             </div>
             <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Aksesoris</label>
+                <div class="col-sm-10">
+                    <select class="form-select" aria-label="Default select example" name="id_aksesoris">
+                        <option selected>Pilih Aksesoris</option>
+                        @foreach($aksesoris as $row)
+                        <option value="{{$row->id_aksesoris}}" id="ddacc">{{$row->nama_aksesoris}} </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <input type="hidden" id="harga" value="0">
+            <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Jumlah</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" name="jml_pembelian">
+                    <input type="number" class="form-control" name="jml_pembelian" id="jml_pembelian" onblur="myFunction()">
                 </div>
             </div>
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Total</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" name="total_harga">
+                    <input type="number" class="form-control" name="total_harga" id="total">
                 </div>
             </div>
+            <script  type="text/javascript">
+                function myFunction() {
+                    // Declare variables
+                    var jml, harga, txtValue;
+                    jml = document.getElementById("jml_pembelian");
+                    harga = 10;
+                    // document.getElementById("harga");
+
+                    txtValue = jml * harga;
+
+                    // Loop through all table rows, and hide those who don't match the search query
+                    document.getElementById('total').value = txtValue;
+                }
+            </script>
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Nomor Pembelian</label>
                 <div class="col-sm-10">

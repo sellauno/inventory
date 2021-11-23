@@ -41,7 +41,9 @@ class BarangController extends Controller
     public function edit($id)
     {
         $data = Barang::find($id);
-        $data2 = DB::table('kebutuhan')->where('id_barang', '=', $id)->get();
+        $data2 = DB::table('kebutuhan')
+            ->join('aksesoris', 'aksesoris.id_aksesoris', '=', 'kebutuhan.id_aksesoris')
+            ->where('kebutuhan.id_barang', '=', $id)->get();
         // $data3 = Aksesoris::all();
         $datax = DB::table('kebutuhan')->select('id_aksesoris')->where('id_barang', '=', $id);
         $data3 = DB::table('aksesoris')
@@ -56,15 +58,15 @@ class BarangController extends Controller
         $barang->nama_barang = $request->nama_barang;
         $barang->warna = $request->warna;
         $barang->save();
-
-        foreach ($request->id_kebutuhan as $key  => $value) {
-            $kebutuhan = Kebutuhan::find($request->id_kebutuhan[$key]);
-            $kebutuhan->id_barang = $id;
-            $kebutuhan->id_aksesoris = $request->id_aksesoris[$key];
-            $kebutuhan->jumlah = $request->jumlah[$key];
-            $kebutuhan->save();
+        if ($request->id_kebutuhan != null) {
+            foreach ($request->id_kebutuhan as $key  => $value) {
+                $kebutuhan = Kebutuhan::find($request->id_kebutuhan[$key]);
+                $kebutuhan->id_barang = $id;
+                $kebutuhan->id_aksesoris = $request->id_aksesoris[$key];
+                $kebutuhan->jumlah = $request->jumlah[$key];
+                $kebutuhan->save();
+            }
         }
-
         if ($request->id_aksesorisadd != null) {
             foreach ($request->id_aksesorisadd as $key  => $value) {
                 Kebutuhan::create([
