@@ -8,6 +8,9 @@ use App\Pembelian;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use \Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+// use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OrderController extends Controller
 {
@@ -51,8 +54,9 @@ class OrderController extends Controller
 
     public function create(Request $request)
     {
+        $tgl = Carbon::createFromFormat('Y-m-d', $request->tgl)->format('Ymd');
         Order::create([
-            'kode_order' => $request->kode_order,
+            'kode_order' => $tgl,
             'tgl' => $request->tgl,
             'keterangan' => $request->keterangan
         ]);
@@ -81,4 +85,10 @@ class OrderController extends Controller
         $order->delete();
         return redirect('/dashboard');
     }
+
+    public function export() 
+    {
+        // return Excel::download(new UsersExport, 'users.xlsx');
+    }
+   
 }

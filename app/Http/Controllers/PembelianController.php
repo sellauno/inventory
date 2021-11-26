@@ -33,7 +33,10 @@ class PembelianController extends Controller
             'total_harga' => $request->total_harga,
             'no_pembelian' => $request->no_pembelian
         ]);
-        return redirect('/pembelian');
+        // return redirect('/pembelian');
+        echo '<script type="text/javascript">'
+  		   , 'history.go(-2);'
+  		   , '</script>';
     }
 
     public function edit($id)
@@ -55,20 +58,31 @@ class PembelianController extends Controller
         $pembelian->total_harga = $request->total_harga;
         $pembelian->no_pembelian = $request->no_pembelian;
         $pembelian->save();
-        return redirect('/pembelian');
+        // return redirect('/pembelian');
+        echo '<script type="text/javascript">'
+  		   , 'history.go(-2);'
+  		   , '</script>';
     }
 
     public function delete($id)
     {
         $pembelian = Pembelian::find($id);
         $pembelian->delete();
-        return redirect('/pembelian');
+        // return redirect('/pembelian');
+        return back();
     }
 
-    public function addFromOrder($id)
+    public function addFromOrder($id, $brg, $acc, $no)
     {
         $data = Barang::all();
         $data2 = Aksesoris::all();
-        return view('pembelianadd', ['barang' => $data, 'aksesoris' => $data2, 'id' => $id]);
+        return view('pembelianadd', [
+            'barang' => $data,
+            'aksesoris' => $data2, 
+            'id' => $id,
+            'brg' => $brg,
+            'acc' => $acc,
+            'no' => $no,            
+        ]);
     }
 }

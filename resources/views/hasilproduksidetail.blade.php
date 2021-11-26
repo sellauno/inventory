@@ -35,54 +35,84 @@
 @endsection
 
 @section('content')
-<div class="card">
+
+<div class="card info-card customers-card">
     <div class="card-body">
-        <h5 class="card-title">Detail Produksi</h5>
-
-        <!-- Horizontal Form -->
-        <form>
-            @csrf
-            <div class="row mb-3">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">Tanggal</label>
-                <div class="col-sm-10">
-                    <input type="date" class="form-control" name="tgl" value="{{$produksi->tgl}}">
-                </div>
-            </div>
-            <div class="row mb-3">
-                <label class="col-sm-2 col-form-label">Barang</label>
-                <div class="col-sm-10">
-                    <select class="form-select" aria-label="Default select example" name="id_barang">
-                        <option>Pilih Barang</option>
-                        @foreach($barang as $row)
-                        <option <?php if($produksi->id_barang == $row->id_barang) echo "selected"; ?> value="{{$row->id_barang}}">{{$row->nama_barang}}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">First Quantity</label>
-                <div class="col-sm-10">
-                    <input type="number" class="form-control" name="first_qty" value="{{$produksi->first_qty}}">
-                </div>
-            </div>
-            <div class="row mb-3">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">Quantity</label>
-                <div class="col-sm-10">
-                    <input type="number" class="form-control" name="qty" value="{{$produksi->qty}}">
-                </div>
-            </div>
-            <div class="row mb-3">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">Reject</label>
-                <div class="col-sm-10">
-                    <input type="number" class="form-control" name="reject_qty" value="{{$produksi->reject_qty}}">
-                </div>
-            </div>
-            <div class="text-center">
-                <a href="/hasilproduksi"><button type="button" class="btn btn-danger">Kembali</button></a>
-
-            </div>
-        </form><!-- End Horizontal Form -->
+        <br>
+        <h6>{{$barang->nama_barang}} ({{$barang->warna}})</h6>
     </div>
 </div>
+<!-- Default Table -->
+
+@foreach($kebutuhan as $kbt)
+<div class="card info-card customers-card">
+    <div class="card-body">
+        <div>
+            <h5 class="card-title">{{$kbt->nama_aksesoris}}</h5>
+        </div>
+        <!-- Table with stripped rows -->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Tanggal</th>
+                    <th scope="col">Jumlah</th>
+                    <th scope="col">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $no = 0;
+                $purchased = 0;
+                $used = 0;
+                ?>
+                @foreach($pembelian as $row)
+                <?php
+                if ($kbt->id_aksesoris == $row->id_aksesoris) {
+                ?>
+                    <tr>
+                        <th scope="row"><?php $no++;
+                                        echo $no; ?></th>
+                        <td>{{$row->tgl_pembelian}}</td>
+                        <td>{{$row->jml_pembelian}}</td>
+                        <td>{{$row->total_harga}}</td>
+                    </tr>
+                <?php
+                    $purchased += $row->jml_pembelian;
+                    $used = ($kbt->jumlah * $produksi->qty) + ($kbt->jumlah * $produksi->reject_qty);
+                }
+                $left = $purchased - $used;
+                ?>
+                @endforeach
+            </tbody>
+        </table>
+        <?php
+        // if ($no == 0) {
+        //   echo "<p>Tidak ada data</p>";
+        // }
+        ?>
+
+        <div class="d-flex align-items-center">
+            <h6><a href="/pembelian/add/{{$produksi->id_produksi}}/{{$produksi->id_barang}}/{{$kbt->id_aksesoris}}/{{$no+=1}}">
+                    <i class="bi bi-plus-circle"></i>
+                </a></h6>
+            <div class="ps-3">
+                Tambah Data
+            </div>
+        </div>
+        <br><br>
+        <!-- List group With Contextual classes -->
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-primary">Purchased &nbsp;: {{$purchased}}</li> <br>
+            <li class="list-group-item list-group-item-success">Used &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{$used}} </li> <br>
+            <li class="list-group-item list-group-item-danger">Estimated Left &nbsp;: {{$left}} </li> <br>
+        </ul><!-- End List Group With Contextual classes -->
+
+    </div>
+</div>
+
+@endforeach
+<!-- End Default Table Example -->
+
 
 @endsection

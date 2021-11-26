@@ -48,7 +48,11 @@
                     <select class="form-select" aria-label="Default select example" name="id_order">
                         <option selected>Pilih Batch Order</option>
                         @foreach($order as $row)
-                        <option value="{{$row->id_order}}" <?php if($id!=null){ if($row->id_order==$id){ echo "selected";}}?>>
+                        <option value="{{$row->id_order}}" <?php if ($id != null) {
+                                                                if ($row->id_order == $id) {
+                                                                    echo "selected";
+                                                                }
+                                                            } ?>>
                             {{$row->kode_order}}
                         </option>
                         @endforeach
@@ -69,7 +73,7 @@
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">First Quantity</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" name="first_qty">
+                    <input type="number" class="form-control" name="first_qty" required>
                 </div>
             </div>
             <div class="row mb-3">

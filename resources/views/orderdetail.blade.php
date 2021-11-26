@@ -16,18 +16,6 @@
 </li><!-- End Barang Nav -->
 
 <li class="nav-item">
-  <a class="nav-link collapsed" data-bs-target="#forms-nav" href="/pembelian">
-    <i class="bi bi-journal-text"></i><span>Pembelian</span>
-  </a>
-</li><!-- End Pembelian Nav -->
-
-<li class="nav-item">
-  <a class="nav-link collapsed" data-bs-target="#tables-nav" href="/hasilproduksi">
-    <i class="bi bi-layout-text-window-reverse"></i><span>Produksi</span>
-  </a>
-</li><!-- End Produksi Nav -->
-
-<li class="nav-item">
   <a class="nav-link collapsed" data-bs-target="#icons-nav" href="/aksesoris">
     <i class="bi bi-gem"></i><span>Aksesoris</span>
   </a>
@@ -88,7 +76,7 @@
               <a href="/hasilproduksi/edit/{{$row->id_produksi}}">
                 <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
               </a>
-              <a href="/hasilproduksi/detail/{{$row->id_produksi}}">
+              <a href="/hasilproduksi/detail/{{$row->id_produksi}}/{{$row->id_barang}}">
                 <button type="button" class="btn btn-outline-warning btn-sm">Lihat</button>
               </a>
             </td>
@@ -186,8 +174,9 @@
       //   echo "<p>Tidak ada data</p>";
       // }
       ?>
+      
       <div class="d-flex align-items-center">
-        <h6><a href="/pembelian/add/{{$order->id_order}}">
+        <h6><a href="/pembelian/add/{{$pro->id_produksi}}/{{$pro->id_barang}}/{{$kbt->id_aksesoris}}/{{$no+=1}}">
             <i class="bi bi-plus-circle"></i>
           </a></h6>
         <div class="ps-3">

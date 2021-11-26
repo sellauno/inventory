@@ -50,7 +50,7 @@ Route::post('/hasilproduksi/create', 'HasilProduksiController@create');
 Route::get('/hasilproduksi/edit/{id}', 'HasilProduksiController@edit');
 Route::post('/hasilproduksi/update/{id}','HasilProduksiController@update');
 Route::get('/hasilproduksi/delete/{id}', 'HasilProduksiController@delete');
-Route::get('/hasilproduksi/detail/{id}', 'HasilProduksiController@detail');
+Route::get('/hasilproduksi/detail/{id}/{idbrg}', 'HasilProduksiController@detail');
 
 
 Route::get('/orderdetail/{id}', 'OrderController@toOrderDetail');
@@ -58,4 +58,6 @@ Route::get('/order/add', 'OrderController@add');
 Route::post('/order/create', 'OrderController@create');
 
 Route::get('/hasilproduksi/add/{id}', 'HasilProduksiController@addFromOrder');
-Route::get('/pembelian/add/{id}', 'PembelianController@addFromOrder');
+Route::get('/pembelian/add/{id}/{brg}/{acc}/{no}', 'PembelianController@addFromOrder');
+
+Route::get('export', 'OrderController@export');

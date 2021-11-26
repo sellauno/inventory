@@ -42,24 +42,14 @@
         <!-- Horizontal Form -->
         <form action="/hasilproduksi/update/{{$produksi->id_produksi}}" method="post">
             @csrf
-            <div class="row mb-3">
-                <label class="col-sm-2 col-form-label">Barang</label>
-                <div class="col-sm-10">
-                    <select class="form-select" aria-label="Default select example" name="id_barang">
-                        <option>Pilih Barang</option>
-                        @foreach($order as $row)
-                        <option <?php if($produksi->id_order == $row->id_order) echo "selected"; ?> value="{{$row->id_order}}">{{$row->kode_order}}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
+            <input type="hidden" name="id_order" value="{{$produksi->id_order}}">
             <div class="row mb-3">
                 <label class="col-sm-2 col-form-label">Barang</label>
                 <div class="col-sm-10">
                     <select class="form-select" aria-label="Default select example" name="id_barang">
                         <option>Pilih Barang</option>
                         @foreach($barang as $row)
-                        <option <?php if($produksi->id_barang == $row->id_barang) echo "selected"; ?> value="{{$row->id_barang}}">{{$row->nama_barang}}</option>
+                        <option <?php if ($produksi->id_barang == $row->id_barang) echo "selected"; ?> value="{{$row->id_barang}}">{{$row->nama_barang}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -67,7 +57,7 @@
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">First Quantity</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" name="first_qty" value="{{$produksi->first_qty}}">
+                    <input type="number" class="form-control" name="first_qty" value="{{$produksi->first_qty}}" required>
                 </div>
             </div>
             <div class="row mb-3">

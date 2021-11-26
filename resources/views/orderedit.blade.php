@@ -16,18 +16,6 @@
 </li><!-- End Barang Nav -->
 
 <li class="nav-item">
-    <a class="nav-link collapsed" data-bs-target="#forms-nav" href="/pembelian">
-        <i class="bi bi-journal-text"></i><span>Pembelian</span>
-    </a>
-</li><!-- End Pembelian Nav -->
-
-<li class="nav-item">
-    <a class="nav-link collapsed" data-bs-target="#tables-nav" href="/hasilproduksi">
-        <i class="bi bi-layout-text-window-reverse"></i><span>Produksi</span>
-    </a>
-</li><!-- End Produksi Nav -->
-
-<li class="nav-item">
     <a class="nav-link collapsed" data-bs-target="#icons-nav" href="/aksesoris">
         <i class="bi bi-gem"></i><span>Aksesoris</span>
     </a>
@@ -45,13 +33,13 @@
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Kode Order</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="kode_order" value="{{$order->kode_order}}">
+                    <input type="text" class="form-control" name="kode_order" value="{{$order->kode_order}}" readonly>
                 </div>
             </div>
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Tanggal</label>
                 <div class="col-sm-10">
-                    <input type="date" class="form-control" name="tgl" value="{{$order->tgl}}">
+                    <input type="date" class="form-control" name="tgl" value="{{$order->tgl}}" required>
                 </div>
             </div>
             <div class="row mb-3">

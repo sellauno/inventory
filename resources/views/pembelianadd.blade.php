@@ -16,18 +16,6 @@
 </li><!-- End Barang Nav -->
 
 <li class="nav-item">
-    <a class="nav-link " data-bs-target="#forms-nav" href="/pembelian">
-        <i class="bi bi-journal-text"></i><span>Pembelian</span>
-    </a>
-</li><!-- End Pembelian Nav -->
-
-<li class="nav-item">
-    <a class="nav-link collapsed" data-bs-target="#tables-nav" href="/hasilproduksi">
-        <i class="bi bi-layout-text-window-reverse"></i><span>Produksi</span>
-    </a>
-</li><!-- End Produksi Nav -->
-
-<li class="nav-item">
     <a class="nav-link collapsed" data-bs-target="#icons-nav" href="/aksesoris">
         <i class="bi bi-gem"></i><span>Aksesoris</span>
     </a>
@@ -49,7 +37,7 @@
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Tanggal</label>
                 <div class="col-sm-10">
-                    <input type="date" class="form-control" name="tgl_pembelian">
+                    <input type="date" class="form-control" name="tgl_pembelian" value="{{now()->format('Y-m-d')}}" required>
                 </div>
             </div>
             <div class="row mb-3">
@@ -58,7 +46,9 @@
                     <select class="form-select" aria-label="Default select example" name="id_barang">
                         <option selected>Pilih Barang</option>
                         @foreach($barang as $row)
-                        <option value="{{$row->id_barang}}">{{$row->nama_barang}} {{$row->warna}}</option>
+                        <option value="{{$row->id_barang}}" <?php if ($brg == $row->id_barang) {
+                                                                echo "selected";
+                                                            } ?>>{{$row->nama_barang}} {{$row->warna}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -69,7 +59,9 @@
                     <select class="form-select" aria-label="Default select example" name="id_aksesoris">
                         <option selected>Pilih Aksesoris</option>
                         @foreach($aksesoris as $row)
-                        <option value="{{$row->id_aksesoris}}" id="ddacc">{{$row->nama_aksesoris}} </option>
+                        <option value="{{$row->id_aksesoris}}" id="ddacc" <?php if ($acc == $row->id_aksesoris) {
+                                                                                echo "selected";
+                                                                            } ?>>{{$row->nama_aksesoris}} </option>
                         @endforeach
                     </select>
                 </div>
@@ -78,16 +70,34 @@
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Jumlah</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" name="jml_pembelian" id="jml_pembelian" onblur="myFunction()">
+                    <input type="number" class="form-control" name="jml_pembelian" id="jml_pembelian" onkeyup="myFunction()" required>
                 </div>
             </div>
+            <!-- <input type="text" size="5" id="value1" name="value1" class="value" />
+            <input type="text" size="5" id="value2" name="value2" class="value" />
+
+             <input type="text" size="5" id="total" readonly="readonly" class="bckground" name="total" />
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">
+                jQuery(document).ready(function($) {
+                    var $total = $('#total'),
+                        $value = $('.value');
+                    $value.on('input', function(e) {
+                        var total = 1;
+                        $value.each(function(index, elem) {
+                            if (!Number.isNaN(parseInt(this.value, 10)))
+                                total = total * parseInt(this.value, 10);
+                        });
+                        $total.val(total);
+                    });
+                });
+            </script> -->
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Total</label>
                 <div class="col-sm-10">
                     <input type="number" class="form-control" name="total_harga" id="total">
                 </div>
             </div>
-            <script  type="text/javascript">
+            <script type="text/javascript">
                 function myFunction() {
                     // Declare variables
                     var jml, harga, txtValue;
@@ -104,14 +114,14 @@
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Nomor Pembelian</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" name="no_pembelian">
+                    <input type="number" class="form-control" name="no_pembelian" value="{{$no}}" readonly>
                 </div>
             </div>
 
             <div class="text-center">
                 <button type="submit" class="btn btn-primary">Simpan</button>
                 <button type="reset" class="btn btn-secondary">Reset</button>
-                <a href="/pembelian"><button type="button" class="btn btn-danger">Cancel</button></a>
+                <a href="{{ url()->previous() }}"><button type="button" class="btn btn-danger">Cancel</button></a>
 
             </div>
         </form><!-- End Horizontal Form -->
