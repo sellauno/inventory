@@ -73,6 +73,7 @@
                     <input type="number" class="form-control" name="jml_pembelian" id="jml_pembelian" onkeyup="myFunction()" required>
                 </div>
             </div>
+            
             <!-- <input type="text" size="5" id="value1" name="value1" class="value" />
             <input type="text" size="5" id="value2" name="value2" class="value" />
 

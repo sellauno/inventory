@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Aksesoris;
 use App\HasilProduksi;
 use App\Order;
 use App\Pembelian;
@@ -9,8 +10,10 @@ use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use \Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
-// use App\Exports\UsersExport;
+use App\Exports\OrderExport;
+use App\Exports\OrderSheet;
 use Maatwebsite\Excel\Facades\Excel;
+
 
 class OrderController extends Controller
 {
@@ -39,12 +42,12 @@ class OrderController extends Controller
             ->orderBy('pembelian.id_barang')
             ->get();
         $datakbt = DB::table('kebutuhan')
-        ->join('hasilproduksi', 'hasilproduksi.id_barang', '=', 'kebutuhan.id_barang')
-        ->join('barang', 'barang.id_barang', '=', 'kebutuhan.id_barang')
-        ->join('aksesoris', 'aksesoris.id_aksesoris', '=', 'kebutuhan.id_aksesoris')
-        ->select('aksesoris.id_aksesoris','aksesoris.nama_aksesoris', 'kebutuhan.*', 'hasilproduksi.id_produksi')
-        ->where('hasilproduksi.id_order', '=', $id)
-        ->get();
+            ->join('hasilproduksi', 'hasilproduksi.id_barang', '=', 'kebutuhan.id_barang')
+            ->join('barang', 'barang.id_barang', '=', 'kebutuhan.id_barang')
+            ->join('aksesoris', 'aksesoris.id_aksesoris', '=', 'kebutuhan.id_aksesoris')
+            ->select('aksesoris.id_aksesoris', 'aksesoris.nama_aksesoris', 'kebutuhan.*', 'hasilproduksi.id_produksi')
+            ->where('hasilproduksi.id_order', '=', $id)
+            ->get();
         return view('orderdetail', ['order' => $data, 'produksi' => $data2, 'pembelian' => $data3, 'kebutuhan' => $datakbt]);
     }
     public function add()
@@ -86,9 +89,91 @@ class OrderController extends Controller
         return redirect('/dashboard');
     }
 
-    public function export() 
+    public function export($id)
     {
         // return Excel::download(new UsersExport, 'users.xlsx');
+        // return view('coba');
+
+        // Excel::create('Report2016', function($excel) {
+
+        //     // Set the title
+        //     $excel->setTitle('My awesome report 2016');
+
+        //     // Chain the setters
+        //     $excel->setCreator('Me')->setCompany('Our Code World');
+
+        //     $excel->setDescription('A demonstration to change the file properties');
+
+        //     $data = [12,"Hey",123,4234,5632435,"Nope",345,345,345,345];
+
+        //     $excel->sheet('Sheet 1', function ($sheet) use ($data) {
+        //         $sheet->setOrientation('landscape');
+        //         $sheet->fromArray($data, NULL, 'A3');
+        //     });
+
+        // })->download('xlsx');
+        // return redirect('/dashboard');
+        // Excel::create('New file', function($excel) {
+
+        //     $excel->sheet('New sheet', function($sheet) {
+
+        //         $sheet->loadView('data');
+
+        //     });
+
+        // });
+        return Excel::download(new OrderSheet($id), 'order.xlsx');
     }
-   
+
+    public function pexport($id)
+    {
+        $data = Order::find($id);
+        $data2 = DB::table('barang')
+            ->rightjoin('hasilproduksi', 'hasilproduksi.id_barang', '=', 'barang.id_barang')
+            ->select('hasilproduksi.*', 'barang.*')
+            ->where('hasilproduksi.id_order', '=', $id)
+            ->get();
+        $datakbt = DB::table('kebutuhan')
+            ->join('hasilproduksi', 'hasilproduksi.id_barang', '=', 'kebutuhan.id_barang')
+            ->join('barang', 'barang.id_barang', '=', 'kebutuhan.id_barang')
+            ->join('aksesoris', 'aksesoris.id_aksesoris', '=', 'kebutuhan.id_aksesoris')
+            ->select('aksesoris.id_aksesoris', 'aksesoris.nama_aksesoris', 'kebutuhan.*', 'hasilproduksi.id_produksi')
+            ->where('hasilproduksi.id_order', '=', $id)
+            ->get();
+        $data3 = DB::table('pembelian')
+            ->join('hasilproduksi', 'pembelian.id_produksi', '=', 'hasilproduksi.id_produksi')
+            ->join('aksesoris', 'aksesoris.id_aksesoris', '=', 'pembelian.id_aksesoris')
+            ->selectRaw('pembelian.id_barang, pembelian.tgl_pembelian, pembelian.total_harga, pembelian.id_aksesoris, aksesoris.nama_aksesoris, SUM(pembelian.jml_pembelian) as jml_pembelian')
+            ->groupByRaw('id_aksesoris')
+            ->where('hasilproduksi.id_order', '=', $id)
+            ->get();
+        $dataused = DB::table('hasilproduksi')
+            ->join('kebutuhan', 'kebutuhan.id_barang', '=', 'hasilproduksi.id_barang')
+            ->select('kebutuhan.*')
+            ->where('hasilproduksi.id_order', '=', $id)
+            ->get();
+        $dataacc = DB::table('aksesoris')
+            ->join('pembelian', 'aksesoris.id_aksesoris', '=', 'pembelian.id_aksesoris')
+            ->join('hasilproduksi', 'pembelian.id_produksi', '=', 'hasilproduksi.id_produksi')
+            ->select('aksesoris.nama_aksesoris')
+            ->where('hasilproduksi.id_order', '=', $id)
+            ->groupBy('aksesoris.id_aksesoris')
+            ->get();
+        $datatotal = DB::table('aksesoris')
+            ->join('pembelian', 'aksesoris.id_aksesoris', '=', 'pembelian.id_aksesoris')
+            ->join('hasilproduksi', 'pembelian.id_produksi', '=', 'hasilproduksi.id_produksi')
+            ->selectRaw('SUM(pembelian.jml_pembelian) as jml')
+            ->where('hasilproduksi.id_order', '=', $id)
+            ->groupBy('pembelian.id_aksesoris')
+            ->get();
+        return view('data', [
+            'order' => $data,
+            'produksi' => $data2,
+            'pembelian' => $data3,
+            'kebutuhan' => $datakbt,
+            'aksesoris' => $dataacc,
+            'total' => $datatotal,
+            'used' => $dataused
+        ]);
+    }
 }

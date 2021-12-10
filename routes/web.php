@@ -60,4 +60,5 @@ Route::post('/order/create', 'OrderController@create');
 Route::get('/hasilproduksi/add/{id}', 'HasilProduksiController@addFromOrder');
 Route::get('/pembelian/add/{id}/{brg}/{acc}/{no}', 'PembelianController@addFromOrder');
 
-Route::get('export', 'OrderController@export');
+Route::get('export/{id}', 'OrderController@export');
+// Route::get('export/{id}', 'OrderController@pexport');

@@ -40,6 +40,10 @@
           <span class="text-muted small pt-2 ps-1">{{$order->keterangan}}</span>
         </div>
       </div>
+      <br>
+      <div class="d-flex align-items-center">
+        <a href="/export/{{$order->id_order}}"><button type="button" class="btn btn-primary">Cetak Laporan</button></a>
+      </div>
       <br><br>
       <div class="d-flex align-items-center">
         <h6>Produksi</h6>
@@ -127,68 +131,5 @@
 
 </div><!-- End Order Card -->
 
-@foreach($produksi as $pro)
-<div class="card info-card customers-card">
-  <div class="card-body">
-    <br><br>
-    <h6>{{$pro->nama_barang}} ({{$pro->warna}})</h6>
-
-    <!-- Default Table -->
-    @foreach($kebutuhan as $kbt)
-    <?php if ($pro->id_barang == $kbt->id_barang) { ?>
-      <!-- <h6>{{$kbt->nama_aksesoris}} </h6> -->
-      <div>
-        <h5 class="card-title">{{$kbt->nama_aksesoris}}</h5>
-      </div>
-      <!-- Table with stripped rows -->
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">No</th>
-            <th scope="col">Tanggal</th>
-            <th scope="col">Jumlah</th>
-            <th scope="col">Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php $no = 0; ?>
-          @foreach($pembelian as $row)
-          <?php
-          if ($kbt->id_aksesoris == $row->id_aksesoris) {
-          ?>
-            <tr>
-              <th scope="row"><?php $no++;
-                              echo $no; ?></th>
-              <td>{{$row->tgl_pembelian}}</td>
-              <td>{{$row->jml_pembelian}}</td>
-              <td>{{$row->total_harga}}</td>
-            </tr>
-          <?php
-          }
-          ?>
-          @endforeach
-        </tbody>
-      </table>
-      <?php
-      // if ($no == 0) {
-      //   echo "<p>Tidak ada data</p>";
-      // }
-      ?>
-      
-      <div class="d-flex align-items-center">
-        <h6><a href="/pembelian/add/{{$pro->id_produksi}}/{{$pro->id_barang}}/{{$kbt->id_aksesoris}}/{{$no+=1}}">
-            <i class="bi bi-plus-circle"></i>
-          </a></h6>
-        <div class="ps-3">
-          Tambah Data
-        </div>
-      </div>
-      <br>
-    <?php } ?>
-    @endforeach
-    <!-- End Default Table Example -->
-  </div>
-</div>
-@endforeach
 
 @endsection
