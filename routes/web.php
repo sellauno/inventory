@@ -62,3 +62,6 @@ Route::get('/pembelian/add/{id}/{brg}/{acc}/{no}', 'PembelianController@addFromO
 
 Route::get('export/{id}', 'OrderController@export');
 // Route::get('export/{id}', 'OrderController@pexport');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
