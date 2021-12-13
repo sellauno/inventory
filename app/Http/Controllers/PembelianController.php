@@ -6,6 +6,7 @@ use App\Pembelian;
 use App\Barang;
 use App\Aksesoris;
 use Illuminate\Http\Request;
+use \Illuminate\Support\Facades\DB;
 
 class PembelianController extends Controller
 {
@@ -15,12 +16,12 @@ class PembelianController extends Controller
         return view('pembelian', ['pembelian' => $data]);
     }
 
-    public function add()
-    {
-        $data = Barang::all();
-        $data2 = Aksesoris::all();
-        return view('pembelianadd', ['barang' => $data, 'aksesoris' => $data2, 'id' => null]);
-    }
+    // public function add($brg, $acc)
+    // {
+    //     $data = Barang::find($brg);
+    //     $data2 = Aksesoris::find($acc);
+    //     return view('pembelianadd', ['barang' => $data, 'aksesoris' => $data2, 'id' => null]);
+    // }
 
     public function create(Request $request)
     {
@@ -41,9 +42,15 @@ class PembelianController extends Controller
 
     public function edit($id)
     {
-        $data = Pembelian::find($id);
+        // $data = Pembelian::find($id);
         $data2 = Barang::all();
         $data3 = Aksesoris::all();
+        $data = DB::table('pembelian')
+        ->join('barang', 'pembelian.id_barang', '=', 'barang.id_barang')
+        ->join('aksesoris', 'pembelian.id_aksesoris', '=', 'aksesoris.id_aksesoris')
+        ->select('pembelian.*', 'barang.nama_barang', 'barang.warna', 'aksesoris.nama_aksesoris', 'aksesoris.harga')
+        ->where('pembelian.id_pembelian', '=', $id)
+        ->first();
         return view('pembelianedit', ['pembelian' => $data, 'barang' => $data2, 'aksesoris' => $data3]);
     }
 
@@ -74,8 +81,8 @@ class PembelianController extends Controller
 
     public function addFromOrder($id, $brg, $acc, $no)
     {
-        $data = Barang::all();
-        $data2 = Aksesoris::all();
+        $data = Barang::find($brg);
+        $data2 = Aksesoris::find($acc);
         return view('pembelianadd', [
             'barang' => $data,
             'aksesoris' => $data2, 

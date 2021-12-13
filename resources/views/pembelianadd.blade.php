@@ -41,39 +41,29 @@
                 </div>
             </div>
             <div class="row mb-3">
-                <label class="col-sm-2 col-form-label">Barang</label>
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Barang</label>
                 <div class="col-sm-10">
-                    <select class="form-select" aria-label="Default select example" name="id_barang">
-                        <option selected>Pilih Barang</option>
-                        @foreach($barang as $row)
-                        <option value="{{$row->id_barang}}" <?php if ($brg == $row->id_barang) {
-                                                                echo "selected";
-                                                            } ?>>{{$row->nama_barang}} {{$row->warna}}</option>
-                        @endforeach
-                    </select>
+                    <input type="hidden" class="form-control" name="id_barang" value="{{$barang->id_barang}}">
+                    <input type="text" class="form-control" value="{{$barang->nama_barang}}" readonly>
                 </div>
             </div>
             <div class="row mb-3">
-                <label class="col-sm-2 col-form-label">Aksesoris</label>
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Aksesoris</label>
                 <div class="col-sm-10">
-                    <select class="form-select" aria-label="Default select example" name="id_aksesoris">
-                        <option selected>Pilih Aksesoris</option>
-                        @foreach($aksesoris as $row)
-                        <option value="{{$row->id_aksesoris}}" id="ddacc" <?php if ($acc == $row->id_aksesoris) {
-                                                                                echo "selected";
-                                                                            } ?>>{{$row->nama_aksesoris}} </option>
-                        @endforeach
-                    </select>
+                    <input type="hidden" class="form-control" name="id_aksesoris" value="{{$aksesoris->id_aksesoris}}" readonly>
+                    <input type="text" class="form-control" value="{{$aksesoris->nama_aksesoris}}" readonly>
                 </div>
             </div>
-            <input type="hidden" id="harga" value="0">
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Jumlah</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" name="jml_pembelian" id="jml_pembelian" onkeyup="myFunction()" required>
+                    <input type="number" class="form-control" name="jml_pembelian" id="jml_pembelian" required>
+                    <input type="checkbox" id="same" name="same" onchange="addressFunction()" required />
+                    <code>
+                        Centang jika jumlah sudah benar
+                    </code>
                 </div>
             </div>
-            
             <!-- <input type="text" size="5" id="value1" name="value1" class="value" />
             <input type="text" size="5" id="value2" name="value2" class="value" />
 
@@ -95,10 +85,10 @@
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Total</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" name="total_harga" id="total">
+                    <input type="number" class="form-control" name="total_harga" id="total" readonly>
                 </div>
             </div>
-            <script type="text/javascript">
+            <!-- <script type="text/javascript">
                 function myFunction() {
                     // Declare variables
                     var jml, harga, txtValue;
@@ -111,7 +101,7 @@
                     // Loop through all table rows, and hide those who don't match the search query
                     document.getElementById('total').value = txtValue;
                 }
-            </script>
+            </script> -->
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Nomor Pembelian</label>
                 <div class="col-sm-10">
@@ -126,7 +116,22 @@
 
             </div>
         </form><!-- End Horizontal Form -->
-
+        <?php $total = $aksesoris->harga?>
+        <script>
+            function addressFunction() {
+                if (document.getElementById(
+                        "same").checked) {
+                            $x = document.getElementById(
+                            "jml_pembelian").value;
+                            $total = $x * <?php echo $aksesoris->harga;?>;
+                    document.getElementById(
+                            "total").value = $total;
+                } else {
+                    document.getElementById(
+                        "total").value = "";
+                }
+            }
+        </script>
     </div>
 </div>
 

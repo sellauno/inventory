@@ -45,7 +45,7 @@
             <div class="text-center">
                 <button type="submit" class="btn btn-primary">Simpan</button>
                 <button type="reset" class="btn btn-secondary">Reset</button>
-                <a href="/barang"><button type="button" class="btn btn-danger">Cancel</button></a>
+                <a href="{{ url()->previous() }}"><button type="button" class="btn btn-danger">Cancel</button></a>
 
             </div>
         </form><!-- End Horizontal Form -->

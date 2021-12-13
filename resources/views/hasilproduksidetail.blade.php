@@ -50,6 +50,7 @@
             </thead>
             <tbody>
                 <?php
+                $left = 0;
                 $no = 0;
                 $purchased = 0;
                 $used = 0;
@@ -64,6 +65,14 @@
                         <td>{{$row->tgl_pembelian}}</td>
                         <td>{{$row->jml_pembelian}}</td>
                         <td>{{$row->total_harga}}</td>
+                        <td>
+                            <a href="/pembelian/delete/{{$row->id_pembelian}}">
+                                <button type="button" class="btn btn-outline-danger btn-sm">Hapus</button>
+                            </a>
+                            <a href="/pembelian/edit/{{$row->id_pembelian}}">
+                                <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
+                            </a>
+                        </td>
                     </tr>
                 <?php
                     $purchased += $row->jml_pembelian;

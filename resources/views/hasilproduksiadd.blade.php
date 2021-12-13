@@ -16,18 +16,6 @@
 </li><!-- End Barang Nav -->
 
 <li class="nav-item">
-    <a class="nav-link collapsed" data-bs-target="#forms-nav" href="/pembelian">
-        <i class="bi bi-journal-text"></i><span>Pembelian</span>
-    </a>
-</li><!-- End Pembelian Nav -->
-
-<li class="nav-item">
-    <a class="nav-link " data-bs-target="#tables-nav" href="/hasilproduksi">
-        <i class="bi bi-layout-text-window-reverse"></i><span>Produksi</span>
-    </a>
-</li><!-- End Produksi Nav -->
-
-<li class="nav-item">
     <a class="nav-link collapsed" data-bs-target="#icons-nav" href="/aksesoris">
         <i class="bi bi-gem"></i><span>Aksesoris</span>
     </a>
@@ -91,7 +79,7 @@
             <div class="text-center">
                 <button type="submit" class="btn btn-primary">Simpan</button>
                 <button type="reset" class="btn btn-secondary">Reset</button>
-                <a href="/hasilproduksi"><button type="button" class="btn btn-danger">Cancel</button></a>
+                <a href="{{ url()->previous() }}"><button type="button" class="btn btn-danger">Cancel</button></a>
 
             </div>
         </form><!-- End Horizontal Form -->

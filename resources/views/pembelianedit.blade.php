@@ -38,31 +38,33 @@
                 </div>
             </div>
             <div class="row mb-3">
-                <label class="col-sm-2 col-form-label">Barang</label>
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Barang</label>
                 <div class="col-sm-10">
-                    <select class="form-select" aria-label="Default select example" name="id_barang">
-                        <option selected>Pilih Barang</option>
-                        @foreach($barang as $row)
-                        <option value="{{$row->id_barang}}" <?php if($pembelian->id_barang == $row->id_barang) echo "selected"; ?>>{{$row->nama_barang}}</option>
-                        @endforeach
-                    </select>
+                    <input type="hidden" class="form-control" name="id_barang" value="{{$pembelian->id_barang}}">
+                    <input type="text" class="form-control" value="{{$pembelian->nama_barang}}" readonly>
                 </div>
-            </div>            
+            </div>
             <div class="row mb-3">
-                <label class="col-sm-2 col-form-label">Aksesoris</label>
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Aksesoris</label>
                 <div class="col-sm-10">
-                    <select class="form-select" aria-label="Default select example" name="id_aksesoris">
-                        <option selected>Pilih Barang</option>
-                        @foreach($aksesoris as $row)
-                        <option value="{{$row->id_aksesoris}}"  <?php if($pembelian->id_aksesoris == $row->id_aksesoris) echo "selected"; ?>>{{$row->nama_aksesoris}}</option>
-                        @endforeach
-                    </select>
+                    <input type="hidden" class="form-control" name="id_aksesoris" value="{{$pembelian->id_aksesoris}}" readonly>
+                    <input type="text" class="form-control" value="{{$pembelian->nama_aksesoris}}" readonly>
                 </div>
             </div>
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Jumlah</label>
                 <div class="col-sm-10">
                     <input type="number" class="form-control" name="jml_pembelian" value="{{$pembelian->jml_pembelian}}" required>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Jumlah</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" name="jml_pembelian" id="jml_pembelian" required>
+                    <input type="checkbox" id="same" name="same" onchange="addressFunction()" required />
+                    <code>
+                        Centang jika jumlah sudah benar
+                    </code>
                 </div>
             </div>
             <div class="row mb-3">
@@ -80,11 +82,27 @@
             <div class="text-center">
                 <button type="submit" class="btn btn-primary">Simpan</button>
                 <button type="reset" class="btn btn-secondary">Reset</button>
-                <a href="/pembelian"><button type="button" class="btn btn-danger">Cancel</button></a>
+                <a href="{{ url()->previous() }}"><button type="button" class="btn btn-danger">Cancel</button></a>
 
             </div>
         </form><!-- End Horizontal Form -->
 
+        <?php $total = $pembelian->harga ?>
+        <script>
+            function addressFunction() {
+                if (document.getElementById(
+                        "same").checked) {
+                    $x = document.getElementById(
+                        "jml_pembelian").value;
+                    $total = $x * <?php echo $pembelian->harga; ?>;
+                    document.getElementById(
+                        "total").value = $total;
+                } else {
+                    document.getElementById(
+                        "total").value = "";
+                }
+            }
+        </script>
     </div>
 </div>
 
